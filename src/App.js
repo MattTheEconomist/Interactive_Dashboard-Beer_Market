@@ -28,10 +28,12 @@ function App() {
 
       </div>
        
-      <svg viewBox="-5 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <svg viewBox="-5 0 100 100" 
+      preserveAspectRatio="xMidYMid meet"
+      >
 
      
-      <BarChart selectedVendor={selectedVendor}/>
+      <BarChart selectedVendor={selectedVendor} height={100}/>
       <LineChart />
       <PieChart />
       </svg>
