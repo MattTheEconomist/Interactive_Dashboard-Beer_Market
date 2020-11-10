@@ -177,4 +177,4 @@ let barData = [
     }
   ]
 
-export {barData}
+export default {barData}

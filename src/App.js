@@ -6,20 +6,17 @@ import ButtonsOnly from "./components/pie/ButtonsOnly";
 import "./App.css";
 
 function App() {
-  const [selectedGroup, setSelectedGroup] = useState("All");
+  const [selectedVendor, setSelectedVendor] = useState("All");
   // const [groupColor, setGroupColor] = useState("grey");
 
 
   function updateBarChart(group) {
-    setSelectedGroup(group);
-
-    // console.log(selectedGroup)
-
+    setSelectedVendor(group);
   }
 
   useEffect(()=>{
-    console.log(selectedGroup)
-  },[selectedGroup])
+    console.log(selectedVendor)
+  },[selectedVendor])
 
 
 
@@ -27,14 +24,14 @@ function App() {
     <div className="App">
       <div id="buttonContainer">
 
-      <ButtonsOnly onChangeGroup={updateBarChart}/>
+      <ButtonsOnly onChangeVendor={updateBarChart}/>
 
       </div>
        
       <svg viewBox="-5 0 100 100" preserveAspectRatio="xMidyMid meet">
 
      
-      <BarChart />
+      <BarChart selectedVendor={selectedVendor}/>
       <LineChart />
       <PieChart />
       </svg>

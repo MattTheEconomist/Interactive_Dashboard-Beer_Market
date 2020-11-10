@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ButtonsOnly(props) {
-    const {onChangeGroup} = props
+    const {onChangeVendor} = props
 
 
     const vendorList = ['All','Budweiser','Heinekin','Guiness','Devils Backbone','Dogfish Head' ,'Samuel Adams']
@@ -9,7 +9,7 @@ export default function ButtonsOnly(props) {
     function buttonClick(e){
         const currentVendor = e.target.value
         // console.log(currentVendor)
-        onChangeGroup(currentVendor)
+        onChangeVendor(currentVendor)
 
         // setSelectedGroup(e.target.value)
     }
