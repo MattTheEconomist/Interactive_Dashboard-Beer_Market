@@ -29,7 +29,7 @@ function App() {
       </div>
        
       <svg viewBox="-5 0 100 100" 
-      preserveAspectRatio="xMidYMid meet"
+      // preserveAspectRatio="xMidYMid meet"
       >
 
      

@@ -27,14 +27,23 @@ export default function BarChart (props){
 
     const selectedData=barData.barData.filter((row=>row.Vendor===selectedVendor))
 
+    const y = scaleLinear()
+    .domain([0, max(selectedData, d => d.Volume)])
+    .range([barChartHeight, 0])
+    // .range([0,barChartHeight])
+
 
     const bars = selectedData.map((row, ind)=>(
         <Bar 
         key={ind}
         x={ind*8}
-        y={0}
+        // y={max(selectedData, d=> d.Volume)-row.Volume}
+        // y={0}
+        y={y(row.Volume)/2}
         width={7.8}
-        height={row.Volume/50}
+        // height={row.Volume/50}
+        height = {(barChartHeight - y(row.Volume)) / 2}
+
 
         />
     ))
@@ -46,7 +55,7 @@ export default function BarChart (props){
     const title= (
         <text
         x={12}
-        y={34}
+        y={20}
         textAnchor="start"
         style={barTextStyle}
         >
@@ -57,5 +66,7 @@ export default function BarChart (props){
     return <g>
         {title}
         {bars}
+        
+        
     </g>
 }
