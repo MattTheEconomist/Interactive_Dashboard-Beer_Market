@@ -14,9 +14,9 @@ function App() {
     setSelectedVendor(group);
   }
 
-  useEffect(()=>{
-    console.log(selectedVendor)
-  },[selectedVendor])
+  // useEffect(()=>{
+    // console.log(selectedVendor)
+  // },[selectedVendor])
 
 
 
@@ -28,7 +28,7 @@ function App() {
 
       </div>
        
-      <svg viewBox="-5 0 100 100" preserveAspectRatio="xMidyMid meet">
+      <svg viewBox="-5 0 100 100" preserveAspectRatio="xMidYMid meet">
 
      
       <BarChart selectedVendor={selectedVendor}/>
