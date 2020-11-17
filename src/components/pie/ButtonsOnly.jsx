@@ -6,12 +6,18 @@ export default function ButtonsOnly(props) {
 
     const vendorList = ['All','Budweiser','Heinekin','Guiness','Devils Backbone','Dogfish Head' ,'Samuel Adams']
 
+    const vendorColorObject=['rgba(0, 0, 0, 1)','rgba(0, 255, 221, 1)','rgba(0, 140, 255, 1)','rgba(0, 8, 255, 1)','rgba(174, 0, 255, 1)','rgba(255, 0, 246, 1)', 'rgba(255, 0, 13, 1)','rgba(0, 255, 174, 1)']
+
+
+    
+
     function buttonClick(e){
         const currentVendor = e.target.value
-        // console.log(currentVendor)
-        onChangeVendor(currentVendor)
+        const currentColor = vendorColorObject[vendorList.indexOf(currentVendor)]
 
-        // setSelectedGroup(e.target.value)
+        // console.log(currentColor)
+        onChangeVendor(currentVendor, currentColor)
+
     }
 
     const buttonList = vendorList.map((el)=>
@@ -28,9 +34,7 @@ export default function ButtonsOnly(props) {
               {buttonList}
           </ul>
           
-     
-
-   
+       
       
       </div>
    

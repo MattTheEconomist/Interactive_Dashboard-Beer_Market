@@ -1,4 +1,4 @@
-let lineData = [
+[
     {
       "Vendor": "All",
       "Year": 2016,
@@ -175,6 +175,3 @@ let lineData = [
       "Volume": 93
     }
   ]
-
-
-  export {lineData}

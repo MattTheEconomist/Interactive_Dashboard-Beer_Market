@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState } from "react";
 import PieChart from "./components/pie/PieChart";
 import BarChart from "./components/bar/BarChart";
 import LineChart from "./components/line/LineChart";
@@ -7,38 +7,40 @@ import "./App.css";
 
 function App() {
   const [selectedVendor, setSelectedVendor] = useState("All");
-  // const [groupColor, setGroupColor] = useState("grey");
+  const [vendorColor, setVendorColor] = useState("rgba(0, 0, 0, 1)");
 
-
-  function updateBarChart(group) {
-    setSelectedVendor(group);
+  function updateBarChart(vendor, color) {
+    setSelectedVendor(vendor);
+    setVendorColor(color);
   }
 
-  // useEffect(()=>{
-    // console.log(selectedVendor)
-  // },[selectedVendor])
-
-
-
   return (
-    <div className="App">
+    <div id="app">
       <div id="buttonContainer">
-
-      <ButtonsOnly onChangeVendor={updateBarChart}/>
-
+        <ButtonsOnly onChangeVendor={updateBarChart} />
       </div>
-       
-      <svg viewBox="-5 0 100 100" 
-      // preserveAspectRatio="xMidYMid meet"
-      >
+      <div id="barAndLine">
+        <div id="barChartArea">
+          <svg viewBox="-5 0 100 100">
+            <BarChart
+              selectedVendor={selectedVendor}
+              barAreaHeight={100}
+              vendorColor={vendorColor}
+            />
+          </svg>
+        </div>
+        <div id="lineChartArea">
+          <svg viewBox="-5 0 100 100">
+            <LineChart selectedVendor={selectedVendor} vendorColor={vendorColor} />
+          </svg>
+        </div>
+      </div>
 
-     
-      <BarChart selectedVendor={selectedVendor} height={100}/>
-      <LineChart />
-      <PieChart />
-      </svg>
-      
-      
+      <div id="pieChartArea">
+        <svg viewBox="-5 0 100 100">
+          <PieChart />
+        </svg>
+      </div>
     </div>
   );
 }
