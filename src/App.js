@@ -9,7 +9,7 @@ function App() {
   const [selectedVendor, setSelectedVendor] = useState("All");
   const [vendorColor, setVendorColor] = useState("rgba(0, 0, 0, 1)");
 
-  function updateBarChart(vendor, color) {
+  function updateAllCharts(vendor, color) {
     setSelectedVendor(vendor);
     setVendorColor(color);
   }
@@ -17,7 +17,10 @@ function App() {
   return (
     <div id="app">
       <div id="buttonContainer">
-        <ButtonsOnly onChangeVendor={updateBarChart} />
+        <ButtonsOnly onChangeVendor={updateAllCharts} />
+      </div>
+      <div id="pieChartArea">
+          <PieChart onChangeVendor={updateAllCharts}/>
       </div>
       <div id="barAndLine">
         <div id="barChartArea">
@@ -36,11 +39,7 @@ function App() {
         </div>
       </div>
 
-      <div id="pieChartArea">
-        <svg viewBox="-5 0 100 100">
-          <PieChart />
-        </svg>
-      </div>
+
     </div>
   );
 }

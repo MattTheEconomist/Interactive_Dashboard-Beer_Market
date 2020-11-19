@@ -1,4 +1,4 @@
-let pieData =[
+[
     {
       "Vendor": "Budweiser",
       "Portions": 0.32
@@ -23,8 +23,4 @@ let pieData =[
       "Vendor": "Samuel Adams",
       "Portions": 0.13
     }
-  ]
-
-
-  
-  export {pieData}
+]

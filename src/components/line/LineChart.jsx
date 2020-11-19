@@ -157,9 +157,8 @@ function YAxis(props){
 }
 
 function LineChartTitle(props){
-    const {selectedVendor} = props
+    const {selectedVendor, yMin} = props
 
-    console.log(props.selectedVendor)
 
     let thisVendor = selectedVendor
 
@@ -175,7 +174,7 @@ function LineChartTitle(props){
     const titleText = `${thisVendor} Historical Sales`
 
         
-    return <text style={titleTextStyle} x={10} y={3} >{titleText}</text>
+    return <text style={titleTextStyle} x={10} y={yMin-10} >{titleText}</text>
 
 }
 
@@ -194,7 +193,7 @@ function LineChart (props){
     const height = 200 - margin.top -margin.bottom 
 
     const xScaleFactor = 0.2
-    const yMin  = 13
+    const yMin  = 15
     const xAdj = -5
     const xMin = 7
 
@@ -241,6 +240,7 @@ function LineChart (props){
 
        <LineChartTitle 
        selectedVendor = {selectedVendor}
+       yMin = {yMin}
        />
 </g>
 

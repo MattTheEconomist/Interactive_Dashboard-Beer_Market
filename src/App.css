@@ -25,15 +25,19 @@ svg{
 #barChartArea{
   width: 75%; 
   margin-right: -10%; 
-  
-  
+  height: 400px;
+  /* background-color: green; */
 
 }
 #lineChartArea{
   width: 50%; 
   /* background-color: grey; */
   height: 25%
-
+}
+#pieChartArea{
+  background-color: grey;
+  height: 300px; 
+  width: 500px;
 }
 
 

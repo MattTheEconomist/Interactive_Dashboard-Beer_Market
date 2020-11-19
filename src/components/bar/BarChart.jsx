@@ -19,8 +19,6 @@ const animateBars=(rectRef, barHeight, volRef,yScaledPoz, vendorColor)=>{
     const rect = select(rectRef.current)
 
     // console.log(vendorColor)
-
-
     rect
     .transition()
     .duration(1000)
@@ -140,7 +138,11 @@ export default function BarChart (props){
     })
 
 
-  
+    let barTitle = selectedVendor
+    if(barTitle==="All"){
+        barTitle = "All Vendors"
+    }
+
 
     const title= (
         <text
@@ -149,7 +151,8 @@ export default function BarChart (props){
         textAnchor="start"
         style={barTextStyle}
         >
-            {selectedData[0].Vendor}
+            {/* {selectedData[0].Vendor} */}
+            {`${barTitle} Sales by Beer Type 2020`}
         </text>
     )
 
