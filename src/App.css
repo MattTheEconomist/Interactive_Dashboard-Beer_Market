@@ -31,6 +31,8 @@ svg{
 }
 #lineChartArea{
   width: 50%; 
+  /* background-color: grey; */
+  height: 25%
 
 }
 

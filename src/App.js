@@ -30,9 +30,9 @@ function App() {
           </svg>
         </div>
         <div id="lineChartArea">
-          <svg viewBox="-5 0 100 100">
+          {/* <svg viewBox="-5 0 100 100"> */}
             <LineChart selectedVendor={selectedVendor} vendorColor={vendorColor} />
-          </svg>
+          {/* </svg> */}
         </div>
       </div>
 

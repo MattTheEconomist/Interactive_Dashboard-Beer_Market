@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react' 
 import lineData from '../../data/lineData.json'
-import {scaleLinear, max, line, select} from 'd3'
+import {scaleLinear, max, min, line, select, axisLeft} from 'd3'
 
 
 
@@ -15,7 +15,7 @@ function animateLine(currentLine , yScale, xScale, selectedData,vendorColor){
 
     const linePath = drawLine(selectedData)
 
-    console.log(vendorColor)
+
 
     currentLine
     .transition()
@@ -47,7 +47,7 @@ function Line(props){
 
 }
 
-function animateDots(dotsContainer, yScale, xScale,selectedData){
+function animateDots(dotsContainer, yScale, xScale,selectedData, vendorColor){
 
 
     const dotCoordinates = selectedData.map((row, ind)=>{
@@ -55,8 +55,6 @@ function animateDots(dotsContainer, yScale, xScale,selectedData){
     })
 
 
-
-    console.log(dotCoordinates)
 
     const dotSelection = dotsContainer.selectAll("circle")
 
@@ -67,6 +65,9 @@ function animateDots(dotsContainer, yScale, xScale,selectedData){
             .duration(1000)
             .attr("cy", dotCoordinates[i].y)
             .attr("cx",  dotCoordinates[i].x)
+            .attr("fill", "white")
+            .attr("stroke", vendorColor)
+            .attr("stroke-width", 0.2)
 
     })   
 
@@ -75,31 +76,32 @@ function animateDots(dotsContainer, yScale, xScale,selectedData){
 
 
 function Dots(props){
-    const  {xScale, yScale, selectedData} = props
+    const  {xScale, yScale, selectedData, vendorColor} = props
     const dotsRef = React.createRef()
 
 
-    // console.log(selectedData)
 
     useEffect(()=>{
         const dotsContainer = select(dotsRef.current)
-        animateDots(dotsContainer, yScale, xScale, selectedData)
+        animateDots(dotsContainer, yScale, xScale, selectedData, vendorColor)
     })
 
     const years=[2016,2017,2018,2019, 2020]
 
     const yearTextStyle={
-        fontSize: "4px",
+        fontSize: "3px",
     }
 
 
     const dots = selectedData.map((row, ind)=>(
-        <g>
+        <g   key={ind+30}>
         <circle key={ind} r={1}
-          fill="black" >
+          fill="white" 
+          stroke = {vendorColor}
+          strokeWidth={0.2}>
     </circle>
 
- <text x={xScale(ind)} y={35} style={yearTextStyle}>{years[ind]}</text> 
+ <text  key={ind+20} x={xScale(ind)} y={35} style={yearTextStyle}>{years[ind]}</text> 
  </g>
     ))
 
@@ -108,12 +110,81 @@ function Dots(props){
 }
 
 
+function YAxis(props){
 
+    const{ selectedData, yScale} = props
+
+    const minVal = min(selectedData, d=>d.Volume)
+    const maxVal = max(selectedData, d=>d.Volume)
+    const medVal = ((maxVal-minVal)/2)+minVal
+
+
+
+    function YScaleCustom(val){
+        if(selectedData[0].Vendor ==="All"){
+            if(val===minVal){
+                return 10
+            }if(val===medVal){
+                return 15
+            }if (val===maxVal){
+                return 20
+            }
+        }else{
+            return yScale(val)
+        }
+    }
+
+
+    const yAxisFont = {
+        fontSize:"3px"
+    }
+
+
+
+    const yAxisValues = <g>
+        <text x={-5} y={YScaleCustom(minVal)} style={yAxisFont}>{maxVal}</text>
+        <text x={-5} y={YScaleCustom(medVal)} style={yAxisFont}>{medVal}</text>
+        <text x={-5}y={YScaleCustom(maxVal)} style={yAxisFont}>{minVal}</text>
+
+    </g>
+
+
+
+ return yAxisValues
+
+
+
+}
+
+function LineChartTitle(props){
+    const {selectedVendor} = props
+
+    console.log(props.selectedVendor)
+
+    let thisVendor = selectedVendor
+
+
+    const titleTextStyle = {
+        fontSize: "4px"
+    }
+
+    if(thisVendor==="All"){
+        thisVendor ="All Vendors"
+    }
+
+    const titleText = `${thisVendor} Historical Sales`
+
+        
+    return <text style={titleTextStyle} x={10} y={3} >{titleText}</text>
+
+}
 
 
 
 function LineChart (props){
     const {selectedVendor, vendorColor}= props
+
+    // console.log(selectedVendor)
 
     const margin = {top: 10 , right: 20 , bottom: 30 , left: 40 }
     const selectedData=lineData.filter((row=>row.Vendor===selectedVendor))
@@ -123,29 +194,36 @@ function LineChart (props){
     const height = 200 - margin.top -margin.bottom 
 
     const xScaleFactor = 0.2
-    const yMin  = 10
+    const yMin  = 13
     const xAdj = -5
+    const xMin = 7
 
     const xScale = scaleLinear()
     .domain([0, selectedData.length])
-    .range([0, width*xScaleFactor])
+    .range([xMin, (width*xScaleFactor)+xMin])
 
     const yScale = scaleLinear()
     .domain([0, max(selectedData, d=>d.Volume)])
     .range([height+yMin,yMin])
 
+    const yScaleAxis = scaleLinear()
+    .domain([0, max(selectedData, d=>d.Volume)])
+    .range([0,20])
 
-    const titleTextStyle={}
-    const xAxisTextStyle={}
 
 
 
     return (
-<g>
+
+        <div id="lineChartContainer">
+            {/* <div id="axisContainer"></div> */}
+           <svg viewBox="-5 0 100 100"> 
+<g >
        <Dots 
        xScale={xScale}
        yScale={yScale}
        selectedData={selectedData}
+       vendorColor={vendorColor}
        
        />
        <Line 
@@ -153,8 +231,22 @@ function LineChart (props){
         yScale={yScale}
         selectedData={selectedData}
         vendorColor={vendorColor} 
+        />
+
+       <YAxis
+       yScale={yScale}
+       yScaleAxis={yScaleAxis}
+       selectedData = {selectedData}
+       />
+
+       <LineChartTitle 
+       selectedVendor = {selectedVendor}
        />
 </g>
+
+   </svg> 
+
+   </div>
     )
 
 
