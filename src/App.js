@@ -20,7 +20,10 @@ function App() {
         <ButtonsOnly onChangeVendor={updateAllCharts} />
       </div>
       <div id="pieChartArea">
-          <PieChart onChangeVendor={updateAllCharts}/>
+          <PieChart 
+          onChangeVendor={updateAllCharts}
+          selectedVendor = {selectedVendor}
+          />
       </div>
       <div id="barAndLine">
         <div id="barChartArea">

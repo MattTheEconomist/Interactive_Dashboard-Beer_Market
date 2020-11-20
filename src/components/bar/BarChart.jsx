@@ -6,11 +6,12 @@ const barDimensions={
     barWidth: 7.8,
     barSideMargin: 0.2,
     centerToCenter: 8, 
-    labelMarginTop:1.6
+    labelMarginTop:2
 }
 
 const barTextStyle={
     fontSize: "2px",
+
 }
 
 
@@ -18,14 +19,12 @@ const animateBars=(rectRef, barHeight, volRef,yScaledPoz, vendorColor)=>{
 
     const rect = select(rectRef.current)
 
-    // console.log(vendorColor)
     rect
     .transition()
     .duration(1000)
     .attr("height", barHeight+.05)
     .attr("y", yScaledPoz)
     .attr("fill", vendorColor)
-    // .attr("fill",   'rgba(255, 0, 246, 1)')
 
   
     
@@ -46,7 +45,6 @@ function Bar(props){
     const {x,y, width, barHeight, volumeValue, BeerType, yScaledPoz, xAxisPoz, vendorColor} = props
 
 
-    // console.log(vendorColor)
     useEffect(()=>{
         animateBars(rectRef,barHeight, volRef, yScaledPoz, vendorColor)
     })
@@ -63,6 +61,7 @@ function Bar(props){
             style={barTextStyle}
             fill={volumeValue===0?"grey":"white"}
             ref = {volRef}
+
             >
                 {volumeValue}
                
@@ -88,8 +87,6 @@ export default function BarChart (props){
 
     const {selectedVendor, barAreaHeight, vendorColor} = props
 
-    // console.log(vendorColor)
-    // console.log(selectedVendor)
     
     const margin = {top: 10 , right: 20 , bottom: 30 , left: 40 }
     const barChartHeight = barAreaHeight - margin.top - margin.bottom;

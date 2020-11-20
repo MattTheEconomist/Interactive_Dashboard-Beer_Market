@@ -84,6 +84,8 @@ function Dots(props){
     useEffect(()=>{
         const dotsContainer = select(dotsRef.current)
         animateDots(dotsContainer, yScale, xScale, selectedData, vendorColor)
+
+        console.log(selectedData[0].Vendor)
     })
 
     const years=[2016,2017,2018,2019, 2020]
@@ -121,7 +123,7 @@ function YAxis(props){
 
 
     function YScaleCustom(val){
-        if(selectedData[0].Vendor ==="All"){
+        if((selectedData[0].Vendor ==="All") && typeof (selectedData!=='undefined')){
             if(val===minVal){
                 return 10
             }if(val===medVal){
