@@ -4,52 +4,42 @@ import { pie } from "d3-shape";
 import pieData from "../../data/pieData.json";
 // import {pieData} from "../../data/pieData.js"
 import Slice from "./Slice";
+import { select } from "d3";
 
 export default function PieChart(props) {
     const {onChangeVendor, selectedVendor} = props
 
     const [currentPortion, setCurrentPortion] = useState(0)
 
-    useEffect(()=>{
-      // const currentVendorObject = pieData.filter((row)=>row.Vendor===selectedVendor)
-      //   if(currentVendorObject.length>0){
-      //     if(typeof currentVendorObject!=='undefined'){ 
-      //       // setCurrentPortion(currentVendorObject[0].Portions)
-      //       let aThing = currentVendorObject
-      //       // console.log(currentVendorObject)
-      //       console.log(aThing[0].Portions)
-      //       setCurrentPortion(aThing) 
-            
-      //     }
+  
 
-      //   }
-  
-  
+    useEffect(()=>{
+      const currentVendorObject = pieData.filter((row)=>row.Vendor===selectedVendor)
+        if(currentVendorObject.length>0){
+          if(typeof currentVendorObject!=='undefined'){ 
+            // const selectedPercentage = currentVendorObject[0].Portions
+            setCurrentPortion(currentVendorObject[0].Portions)          
+          }
+
+        }
+   
     }, [selectedVendor])
 
 
 
 
+    function textUnderPie(currentPortion){
+      if(currentPortion===0 || selectedVendor==="All"){
+        return ''
+      }
+      return `${selectedVendor} Market Share: ${currentPortion*100}%`
+
+    }
 
 
   let piePiece = pie();
   const portions = pieData.map((row) => row.Portions);
   const vendors = pieData.map((row)=>row.Vendor)
-
-  // if(selectedVendor){
-    
-  
-  //     if(typeof currentVendorObject!=='undefined'){
-        
-  //     }
-
-      // const currentVendorPortion = currentVenorObject.Portion
-      // console.log(currentVenorObject[0][0].Portions)
-    // }
-    
-  // }
-
-
 
 
   const vendorColors = [
@@ -73,21 +63,26 @@ export default function PieChart(props) {
         vendor={vendors[index]}
         vendorColor={vendorColors[index+1]}
         onChangeVendor={onChangeVendor}
+        // onMouseEnter={console.log('u')}
       />
     );
   }
 
   return (
     <div id="pieAndText">
-    <svg width={500} height={300}>
+    <svg id= "pieSVG"
+    // viewBox="-5 0 100 100"
+
+    width={500} height={435}
+    >
       <g>
         {/* {pie(portions).map(renderSlice)} */}
         {piePiece(portions).map(renderSlice)}
       </g>
     </svg>
-  {/* <div>{`${selectedVendor} ${currentPortion===0? currentPortion*100: 'Vendors'}`}</div> */}
-  <div>
-    {/* {currentPortion} */}
+  <div  id="textUnderPieContainer">
+    <h3 id="textUnderPie">{textUnderPie(currentPortion)}</h3>
+    
     </div>
   </div>
 

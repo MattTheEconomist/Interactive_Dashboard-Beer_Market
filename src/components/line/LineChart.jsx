@@ -85,7 +85,7 @@ function Dots(props){
         const dotsContainer = select(dotsRef.current)
         animateDots(dotsContainer, yScale, xScale, selectedData, vendorColor)
 
-        console.log(selectedData[0].Vendor)
+        // console.log(selectedData[0].Vendor)
     })
 
     const years=[2016,2017,2018,2019, 2020]
@@ -123,7 +123,9 @@ function YAxis(props){
 
 
     function YScaleCustom(val){
-        if((selectedData[0].Vendor ==="All") && typeof (selectedData!=='undefined')){
+        if(typeof (selectedData!=='undefined')){
+       
+        if(selectedData[0].Vendor ==="All"){
             if(val===minVal){
                 return 10
             }if(val===medVal){
@@ -134,6 +136,7 @@ function YAxis(props){
         }else{
             return yScale(val)
         }
+    }
     }
 
 
